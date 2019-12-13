@@ -164,16 +164,6 @@ func (ref *ImageRef) Interpretation() Interpretation {
 	return Interpretation(int(ref.image.Type))
 }
 
-// Composite overlays the given image over this one
-func (ref *ImageRef) Composite(overlay *ImageRef, mode BlendMode) error {
-	out, err := vipsComposite([]*C.VipsImage{ref.image, overlay.image}, mode)
-	if err != nil {
-		return err
-	}
-	ref.SetImage(out)
-	return nil
-}
-
 // Export exports the image
 func (ref *ImageRef) Export(params ExportParams) ([]byte, ImageType, error) {
 	if params.Format == ImageTypeUnknown {

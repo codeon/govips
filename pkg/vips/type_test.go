@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/davidbyttow/govips/pkg/vips"
+	"github.com/codeon/govips/pkg/vips"
 	"github.com/stretchr/testify/assert"
 )
 

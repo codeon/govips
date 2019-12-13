@@ -315,15 +315,6 @@ func vipsRotate(input *C.VipsImage, angle Angle) (*C.VipsImage, error) {
 	return output, nil
 }
 
-func vipsComposite(inputs []*C.VipsImage, mode BlendMode) (*C.VipsImage, error) {
-	incOpCounter("composite")
-	var output *C.VipsImage
-	if err := C.composite(&inputs[0], &output, C.int(len(inputs)), C.int(mode)); err != 0 {
-		return nil, handleVipsError()
-	}
-	return output, nil
-}
-
 func vipsHasAlpha(image *C.VipsImage) bool {
 	return int(C.has_alpha_channel(image)) > 0
 }
