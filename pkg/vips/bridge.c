@@ -82,9 +82,6 @@ int save_webp_buffer(VipsImage *in, void **buf, size_t *len, int strip, int qual
 	);
 }
 
-int save_tiff_buffer(VipsImage *in, void **buf, size_t *len) {
-	return vips_tiffsave_buffer(in, buf, len, NULL);
-}
 
 int is_colorspace_supported(VipsImage *in) {
 	return vips_colourspace_issupported(in) ? 1 : 0;
@@ -151,10 +148,6 @@ int embed_image(VipsImage *in, VipsImage **out, int left, int top, int width, in
 		return vips_embed(in, out, left, top, width, height, "extend", extend, "background", vipsBackground, NULL);
 	}
 	return vips_embed(in, out, left, top, width, height, "extend", extend, NULL);
-}
-
-int composite(VipsImage **in, VipsImage **out, int n, int mode) {
-	return vips_composite(in, out, n, &mode, NULL);
 }
 
 int add(VipsImage *left, VipsImage *right, VipsImage **out) {
