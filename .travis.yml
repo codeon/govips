@@ -1,5 +1,5 @@
 language: go
-go_import_path: github.com/davidbyttow/govips
+go_import_path: github.com/codeon/govips
 
 sudo: required
 dist: trusty

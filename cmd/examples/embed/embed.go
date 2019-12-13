@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/davidbyttow/govips/pkg/vips"
+	"github.com/codeon/govips/pkg/vips"
 )
 
 var (
