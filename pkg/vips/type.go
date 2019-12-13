@@ -382,17 +382,6 @@ var ImageTypes = map[ImageType]string{
 	ImageTypeWEBP:   "webp",
 }
 
-// Size represents VIPS_SIZE type
-type Size int
-
-// Size enum
-const (
-	SizeBoth  Size = C.VIPS_SIZE_BOTH
-	SizeUp    Size = C.VIPS_SIZE_UP
-	SizeDown  Size = C.VIPS_SIZE_DOWN
-	SizeForce Size = C.VIPS_SIZE_FORCE
-	SizeLast  Size = C.VIPS_SIZE_LAST
-)
 
 var (
 	once                sync.Once
