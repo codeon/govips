@@ -2,10 +2,6 @@
 #include <vips/vips.h>
 #include <vips/foreign.h>
 
-#if (VIPS_MAJOR_VERSION < 8)
-  error_requires_version_8
-#endif
-
 #define INT_TO_GBOOLEAN(bool) (bool > 0 ? TRUE : FALSE)
 
 enum types {
