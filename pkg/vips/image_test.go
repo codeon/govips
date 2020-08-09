@@ -53,7 +53,9 @@ func TestLoadImage_AccessMode(t *testing.T) {
 			assert.NoError(t, err)
 			_, _, err = img.Export(vips.ExportParams{})
 			assert.Error(t, err)
-			assert.Contains(t, err.Error(), "out of order")
+			if err != nil {
+				assert.Contains(t, err.Error(), "out of order")
+			}
 		}
 	}
 }
@@ -95,7 +97,9 @@ func TestNewImageFromFile_AccessMode(t *testing.T) {
 			assert.NoError(t, err)
 			_, _, err = img.Export(vips.ExportParams{})
 			assert.Error(t, err)
-			assert.Contains(t, err.Error(), "out of order")
+			if err != nil {
+				assert.Contains(t, err.Error(), "out of order")
+			}
 		}
 	}
 }
@@ -140,7 +144,9 @@ func TestNewImageFromBuffer_AccessMode(t *testing.T) {
 			assert.NoError(t, err)
 			_, _, err = img.Export(vips.ExportParams{})
 			assert.Error(t, err)
-			assert.Contains(t, err.Error(), "out of order")
+			if err != nil {
+				assert.Contains(t, err.Error(), "out of order")
+			}
 		}
 	}
 }
@@ -167,6 +173,48 @@ func TestImageRef_HasProfile(t *testing.T) {
 			ref, err := vips.NewImageFromFile(tt.path)
 			require.NoError(t, err)
 			got := ref.HasProfile()
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
+
+func TestImageRef_AutorotAngle(t *testing.T) {
+	tests := []struct {
+		name string
+		path string
+		want vips.Angle
+	}{
+		{
+			"image without EXIF orientation",
+			"testdata/without_exif.jpg",
+			vips.Angle0,
+		},
+		{
+			"image with EXIF orientation top-left",
+			"testdata/with_exif_orientation_top_left.jpg",
+			vips.Angle0,
+		},
+		{
+			"image with EXIF orientation right-top",
+			"testdata/with_exif_orientation_right_top.jpg",
+			vips.Angle90,
+		},
+		{
+			"image with EXIF orientation bottom-right",
+			"testdata/with_exif_orientation_bottom_right.jpg",
+			vips.Angle180,
+		},
+		{
+			"image with EXIF orientation left-bottom",
+			"testdata/with_exif_orientation_left_bottom.jpg",
+			vips.Angle270,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ref, err := vips.NewImageFromFile(tt.path)
+			require.NoError(t, err)
+			got := ref.AutorotAngle()
 			assert.Equal(t, tt.want, got)
 		})
 	}
